@@ -16,7 +16,7 @@
         <h1>Celebrity Meet and Greet Form</h1>
         <p class="description">Please fill out this form to register for a celebrity meet and greet event.</p>
 
-        <form action="#" method="post" id="meetGreetForm">
+        <form action="https://formspree.io/f/xpqabdjl" method="POST" id="meetGreetForm">
             <div class="form-group">
                 <label>Name</label>
                 <div class="row">
@@ -121,27 +121,36 @@
         </form>
 
         <script>
-            // This now works because the ID matches the HTML
-            const form = document.getElementById('meetGreetForm');
-            const successMsg = document.getElementById('success-msg');
+    // 1. Wait for the page to fully load
+    window.addEventListener('load', function() {
+        const form = document.getElementById('meetGreetForm');
+        const successBox = document.getElementById('success-msg');
 
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    // Prevents the page from refreshing/error
-                    e.preventDefault(); 
-                    
-                    // Show the message
-                    if (successMsg) {
-                        successMsg.style.display = 'block';
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                // 2. This PREVENTS the redirect to the Formspree page
+                e.preventDefault(); 
+
+                const data = new FormData(form);
+                
+                // 3. Send the data "behind the scenes"
+                fetch(form.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+                        // 4. Show YOUR green box instead of Formspree's page
+                        successBox.style.display = 'block';
+                        form.reset();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        alert("There was a problem. Please try again.");
                     }
-
-                    // Clear the form fields
-                    form.reset();
-
-                    // Scroll to top smoothly so they see the green box
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
-            }
+            });
+        }
+    });
         </script>
     </div>
 
