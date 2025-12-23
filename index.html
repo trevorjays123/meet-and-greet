@@ -112,8 +112,8 @@
                 <div class="checkbox-container">
                     <input type="checkbox" id="terms" required>
                     <label for="terms" class="inline-label">
-                        I agree to the <a href="#">Terms and Conditions</a> and the event code of conduct.
-                    </label>
+    I agree to the <a href="javascript:void(0)" onclick="openTerms()" style="color: blue; text-decoration: underline;">Terms and Conditions</a>
+</label>
                 </div>
             </div>
 
@@ -151,8 +151,45 @@
             });
         }
     });
+
+    function openTerms() {
+    document.getElementById('termsModal').style.display = "block";
+}
+
+function closeTerms() {
+    document.getElementById('termsModal').style.display = "none";
+}
+
+// Optional: Close the modal if they click outside the white box
+window.onclick = function(event) {
+    let modal = document.getElementById('termsModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function openTerms() {
+    document.getElementById('termsModal').style.display = "block";
+}
+
+function closeTerms() {
+    document.getElementById('termsModal').style.display = "none";
+}
+
         </script>
     </div>
-
+<div id="termsModal" class="modal">
+    <div class="modal-content">
+        <h2>Event Code of Conduct & Terms</h2>
+        <hr>
+        <p><strong>1. Respectful Interaction:</strong> All attendees must treat celebrities and staff with respect. Harassment will result in immediate removal.</p>
+        <p><strong>2. Photo Policy:</strong> One (1) photo per person is permitted using personal devices. Professional cameras are prohibited.</p>
+        <p><strong>3. Security:</strong> All bags are subject to search. Physical contact is at the sole discretion of celebrity security.</p>
+        <p><strong>4. Scheduling:</strong> Lineups are subject to change. Please arrive 15 minutes before your scheduled slot.</p>
+        <p><strong>5. Data Privacy:</strong> We will only use your info to contact you regarding this event.</p>
+        
+        <button type="button" class="close-btn" onclick="closeTerms()">Close</button>
+    </div>
+</div>
 </body>
 </html>
