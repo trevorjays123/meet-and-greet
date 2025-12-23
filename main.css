@@ -1,0 +1,203 @@
+/* style.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #fcfcfc;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.form-container {
+    max-width: 750px;
+    width: 100%;
+    background: white;
+}
+
+h1 {
+    font-size: 28px;
+    color: #2c3345;
+    margin-bottom: 8px;
+}
+
+.description {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 35px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #24b45d;
+}
+
+.sub-label {
+    display: block;
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.col {
+    flex: 1;
+}
+
+.mt-10 {
+    margin-top: 12px;
+}
+
+/* Check this specific area - likely where your error was */
+.attendees-input {
+    width: 48%;
+}
+
+
+/* Styling for invalid fields */
+input:not(:placeholder-shown):invalid,
+select:not(:placeholder-shown):invalid {
+    border-color: #e74c3c; /* Red border */
+    background-color: #fff6f5;
+}
+
+/* Optional: Add a small error message style */
+.error-text {
+    color: #e74c3c;
+    font-size: 11px;
+    display: none; /* Hidden by default */
+    margin-top: 4px;
+}
+
+/* Show error text when the input is invalid */
+input:invalid + .error-text {
+    display: block;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+input[type="checkbox"] {
+    width: 18px; /* Fixed width for the checkbox */
+    height: 18px;
+    cursor: pointer;
+}
+
+.inline-label {
+    font-weight: normal;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+.inline-label a {
+    color: #24b45d;
+    text-decoration: none;
+}
+
+/* Disabled button state */
+.submit-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    animation: none;
+}
+
+/* Enhanced Submit Button */
+.submit-btn {
+    background-color: #24b45d;
+    color: white;
+    border: none;
+    padding: 14px 60px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 40px auto;
+    
+    /* Smooth transition for all changes */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover {
+    background-color: #1e9a4f;
+    transform: translateY(-2px); /* Lifts the button slightly */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Deepens the shadow */
+}
+
+.submit-btn:active {
+    transform: translateY(0); /* Pushes it back down when clicked */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Mobile Responsive Adjustments */
+@media screen and (max-width: 600px) {
+    /* 1. Stack the side-by-side rows into a single column */
+    .row {
+        flex-direction: column;
+        gap: 15px; /* Adds space between stacked items */
+    }
+
+    /* 2. Make sure inputs like "Attendees" take full width on mobile */
+    .attendees-input {
+        width: 100% !important;
+    }
+
+    /* 3. Adjust padding and font size for smaller screens */
+    body {
+        padding: 20px 15px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .form-container {
+        padding: 10px;
+    }
+
+    /* 4. Make the button full width on mobile for easier tapping */
+    .submit-btn {
+        width: 100%;
+        padding: 14px 20px;
+    }
+}
