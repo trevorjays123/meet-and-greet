@@ -3,29 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celebrity Meet and Greet Form</title>
-    <link rel="stylesheet" href="main.css">
+    <title>VIP Celebrity Meet and Greet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+   <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/star.png">
+   <style>
+        /* VIP Luxury Glassmorphism Design */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.98);
+            --accent: #6366f1; 
+            --accent-gold: #fbbf24;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --error: #f43f5e;
+            --success: #10b981;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-gold));
+        }
+
+        h1 {
+            color: var(--text-dark);
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        .form-group { margin-bottom: 24px; }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        input, select, textarea {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 16px;
+            width: 100%;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .error-field {
+            border-color: var(--error) !important;
+            background-color: #fff1f2 !important;
+        }
+
+        .sub-label {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Checkbox Alignment Fix */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        input[type="checkbox"] {
+            width: 20px !important;
+            height: 20px !important;
+            margin: 0 !important;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .inline-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .inline-label a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            background: linear-gradient(90deg, #4f46e5, #6366f1);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .success-alert {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .row { display: flex; gap: 20px; }
+        .col { flex: 1; }
+        #char-count { font-size: 11px; text-align: right; margin-top: 5px; color: var(--text-light); }
+
+        @media (max-width: 600px) {
+            .row { flex-direction: column; gap: 0; }
+            .form-container { padding: 30px 20px; }
+        }
+    </style>
 </head>
 <body>
 
     <div class="form-container">
-        <div id="success-msg" style="display: none; background-color: #d4edda; color: #155724; padding: 15px; border-radius: 4px; margin-bottom: 20px; text-align: center; border: 1px solid #c3e6cb; font-weight: bold;">
-            Success! Your registration has been submitted.
+        <div id="success-msg" style="display: none;" class="success-alert">
+            Registration Successful! We will contact you soon.
         </div>
 
-        <h1>Celebrity Meet and Greet Form</h1>
-        <p class="description">Please fill out this form to register for a celebrity meet and greet event.</p>
+        <h1>Celebrity Meet and Greet</h1>
+        <p class="description">Fill out the official registration form for VIP event access.</p>
 
-        <form action="https://formspree.io/f/xpqabdjl" method="POST" id="meetGreetForm">
+        <form action="https://formspree.io/f/xpqabdjl" method="POST" id="meetGreetForm" novalidate>
+            
             <div class="form-group">
-                <label>Name</label>
+                <label>Full Name</label>
                 <div class="row">
                     <div class="col">
-                        <input type="text" name="first_name" required>
+                        <input type="text" name="first_name" id="first_name" maxlength="50" required>
                         <span class="sub-label">First Name</span>
                     </div>
                     <div class="col">
-                        <input type="text" name="last_name" required>
+                        <input type="text" name="last_name" id="last_name" maxlength="50" required>
                         <span class="sub-label">Last Name</span>
                     </div>
                 </div>
@@ -34,16 +211,15 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" placeholder="example@gmail.com" required>
-                        <span class="sub-label">example@gmail.com</span>
+                        <label>Email Address</label>
+                        <input type="email" name="email" id="email" placeholder="user@gmail.com" required>
+                        <span class="sub-label" id="email-hint"></span>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="tel" name="phone" placeholder="(000) 000-0000">
-                        <span class="sub-label">Please enter a valid phone number.</span>
+                        <input type="tel" name="phone" id="phone" placeholder="(000) 000-0000" maxlength="20" required>
                     </div>
                 </div>
             </div>
@@ -52,144 +228,136 @@
                 <div class="col">
                     <div class="form-group">
                         <label>Preferred Celebrity</label>
-                        <select name="celebrity">
+                        <select name="celebrity" id="celebrity">
                             <option value="">Please Select</option>
-                            <option value="singer1">Taylor Swift</option>
-                            <option value="athlete1">Lionel Messi</option>
-                            <option value="myself">Momoshiki!</option>
-                            <option value="actor1">Tom Holland</option>
+                            <option value="Taylor Swift">Taylor Swift</option>
+                            <option value="Lionel Messi">Lionel Messi</option>
+                            <option value="Momoshiki">Momoshiki!</option>
+                            <option value="Tom Holland">Tom Holland</option>
                         </select>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label>Event Date and Time</label>
-                        <input type="date" name="event_date">
-                        <span class="sub-label">Date</span>
+                        <label>State / Province</label>
+                        <input type="text" name="state" id="state" maxlength="50" required>
                     </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" name="address_1">
-                <span class="sub-label">Street Address</span>
-                
-                <input type="text" name="address_2" class="mt-10">
-                <span class="sub-label">Street Address Line 2</span>
-
-                <div class="row mt-10">
-                    <div class="col">
-                        <input type="text" name="city">
-                        <span class="sub-label">City</span>
-                    </div>
-                    <div class="col">
-                        <input type="text" name="state">
-                        <span class="sub-label">State / Province</span>
-                    </div>
-                </div>
-                
-                <div class="row mt-10">
-                    <div class="col">
-                        <input type="text" name="zip">
-                        <span class="sub-label">Postal / Zip Code</span>
-                    </div>
-                    <div class="col"></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Number of Attendees</label>
-                <input type="number" name="attendees" placeholder="e.g., 23">
+                <input type="number" name="attendees" id="attendees" min="1" max="100" required>
             </div>
 
             <div class="form-group">
                 <label>Additional Requests</label>
-                <textarea name="requests" rows="5"></textarea>
+                <textarea name="requests" id="requests" rows="3" maxlength="500"></textarea>
+                <div id="char-count">0 / 500</div>
             </div>
 
-            <div class="form-group checkbox-group">
-                <div class="checkbox-container">
-                    <input type="checkbox" id="terms" required>
-                    <label for="terms" class="inline-label">
-    I agree to the <a href="javascript:void(0)" onclick="openTerms()" style="color: blue; text-decoration: underline;">Terms and Conditions</a>
-</label>
-                </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="terms" required>
+                <label for="terms" class="inline-label">
+                    I agree to the <a href="javascript:void(0)" onclick="openTerms()">Terms & Privacy Policy</a>
+                </label>
             </div>
 
-            <button type="submit" class="submit-btn">Submit</button>
+            <div style="display:none;">
+                <input type="text" name="hp_field" id="hp_field" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" id="submitBtn" class="submit-btn" disabled>Submit Registration</button>
         </form>
+    </div>
 
-        <script>
-    // 1. Wait for the page to fully load
-    window.addEventListener('load', function() {
-        const form = document.getElementById('meetGreetForm');
-        const successBox = document.getElementById('success-msg');
+    <div id="termsModal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+        <div style="background: white; padding: 30px; border-radius: 16px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto;">
+            <h2 style="color: var(--accent); margin-top: 0;">Terms & Privacy</h2>
+            <p style="font-size: 14px; line-height: 1.6; color: #4b5563;">
+                <strong>1. Event Access:</strong> Entry is subject to verification of identity.<br><br>
+                <strong>2. Data Privacy:</strong> We collect your email and address solely for event logistics via Formspree. We never sell your data.<br><br>
+                <strong>3. Communications:</strong> You consent to receive one automated confirmation email.
+            </p>
+            <button type="button" onclick="closeTerms()" class="submit-btn" style="padding: 10px;">I Understand</button>
+        </div>
+    </div>
 
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                // 2. This PREVENTS the redirect to the Formspree page
-                e.preventDefault(); 
+    <script>
+        window.addEventListener('load', function() {
+            const form = document.getElementById('meetGreetForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const emailInput = document.getElementById('email');
+            const textarea = document.getElementById('requests');
+            const charCount = document.getElementById('char-count');
 
-                const data = new FormData(form);
-                
-                // 3. Send the data "behind the scenes"
-                fetch(form.action, {
-                    method: 'POST',
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                }).then(response => {
-                    if (response.ok) {
-                        // 4. Show YOUR green box instead of Formspree's page
-                        successBox.style.display = 'block';
-                        form.reset();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+            const mandatoryFields = [
+                document.getElementById('first_name'),
+                document.getElementById('last_name'),
+                emailInput,
+                document.getElementById('phone'),
+                document.getElementById('state'),
+                document.getElementById('attendees'),
+                document.getElementById('terms')
+            ];
+
+            function validateEmail(email) {
+                return /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email);
+            }
+
+            function checkValidation() {
+                let allFilled = true;
+                mandatoryFields.forEach(field => {
+                    const valid = field.type === 'checkbox' ? field.checked : field.value.trim() !== "";
+                    if (!valid) allFilled = false;
+                });
+                submitBtn.disabled = !(allFilled && validateEmail(emailInput.value));
+            }
+
+            mandatoryFields.forEach(f => {
+                f.addEventListener('input', checkValidation);
+                f.addEventListener('change', checkValidation);
+                f.addEventListener('blur', function() {
+                    if (this.value.trim() === "" || (this === emailInput && !validateEmail(this.value))) {
+                        this.classList.add('error-field');
                     } else {
-                        alert("There was a problem. Please try again.");
+                        this.classList.remove('error-field');
                     }
                 });
             });
-        }
-    });
 
-    function openTerms() {
-    document.getElementById('termsModal').style.display = "block";
-}
+            textarea.addEventListener('input', () => {
+                charCount.textContent = `${textarea.value.length} / 500`;
+            });
 
-function closeTerms() {
-    document.getElementById('termsModal').style.display = "none";
-}
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (document.getElementById('hp_field').value !== "") return;
 
-// Optional: Close the modal if they click outside the white box
-window.onclick = function(event) {
-    let modal = document.getElementById('termsModal');
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+                if (confirm("Confirm submission? Please ensure your @gmail.com address is correct.")) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = "SENDING...";
 
-function openTerms() {
-    document.getElementById('termsModal').style.display = "block";
-}
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    }).then(res => {
+                        if (res.ok) {
+                            document.getElementById('success-msg').style.display = 'block';
+                            form.reset();
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            checkValidation();
+                        }
+                    }).finally(() => {
+                        submitBtn.textContent = "Submit Registration";
+                    });
+                }
+            });
+        });
 
-function closeTerms() {
-    document.getElementById('termsModal').style.display = "none";
-}
-
-        </script>
-    </div>
-<div id="termsModal" class="modal">
-    <div class="modal-content">
-        <h2>Event Code of Conduct & Terms</h2>
-        <hr>
-        <p><strong>1. Respectful Interaction:</strong> All attendees must treat celebrities and staff with respect. Harassment will result in immediate removal.</p>
-        <p><strong>2. Photo Policy:</strong> One (1) photo per person is permitted using personal devices. Professional cameras are prohibited.</p>
-        <p><strong>3. Security:</strong> All bags are subject to search. Physical contact is at the sole discretion of celebrity security.</p>
-        <p><strong>4. Scheduling:</strong> Lineups are subject to change. Please arrive 15 minutes before your scheduled slot.</p>
-        <p><strong>5. Data Privacy:</strong> We will only use your info to contact you regarding this event.</p>
-        
-        <button type="button" class="close-btn" onclick="closeTerms()">Close</button>
-    </div>
-</div>
+        function openTerms() { document.getElementById('termsModal').style.display = "flex"; }
+        function closeTerms() { document.getElementById('termsModal').style.display = "none"; }
+    </script>
 </body>
 </html>
